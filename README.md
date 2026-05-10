@@ -1,14 +1,38 @@
-# Hybrid Search RAG Engine
+<div align="center">
 
-Production-grade Retrieval-Augmented Generation API for long-document QA.
-Combines **FAISS dense search** and **BM25 keyword search** fused with
-**Reciprocal Rank Fusion**, powered by GPT-4o.
+<br>
+
+<h1>🧠 Hybrid-Search RAG Engine</h1>
+
+**Production-grade Retrieval-Augmented Generation API for long-document QA.**
+
+<br>
+
+Combines **FAISS dense search** and **BM25 keyword search** fused with **Reciprocal Rank Fusion**, powered by GPT-4o.
+
+<br>
+
+<a href="https://github.com/im-anishraj/Hybrid-Search-RAG-Engine"><img src="https://img.shields.io/badge/Python-3.11+-blue?style=flat-square&logo=python&logoColor=white&labelColor=0d1117" alt="Python"></a>&nbsp;
+<a href="https://github.com/im-anishraj/Hybrid-Search-RAG-Engine"><img src="https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white&labelColor=0d1117" alt="FastAPI"></a>&nbsp;
+<a href="https://github.com/im-anishraj/Hybrid-Search-RAG-Engine"><img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white&labelColor=0d1117" alt="Docker"></a>&nbsp;
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square&labelColor=0d1117" alt="MIT"></a>&nbsp;
+<a href="https://gssoc.girlscript.tech/"><img src="https://img.shields.io/badge/GSSoC-2026-ff6b35?style=flat-square&labelColor=0d1117" alt="GSSoC 2026"></a>
+
+<br><br>
+
+<a href="#%EF%B8%8F-architecture">Architecture</a>&ensp;·&ensp;<a href="#-tech-stack">Tech Stack</a>&ensp;·&ensp;<a href="#-quickstart">Quickstart</a>&ensp;·&ensp;<a href="#-api-endpoints">API</a>&ensp;·&ensp;<a href="#-benchmarks">Benchmarks</a>
+
+</div>
+
+<br>
 
 ---
 
-## Architecture
+<br>
 
-```
+## 🏗️ Architecture
+
+```text
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                        INGESTION PIPELINE                               │
 │                                                                         │
@@ -50,73 +74,84 @@ Combines **FAISS dense search** and **BM25 keyword search** fused with
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
----
-
-## Tech Stack
-
-| Layer | Library | Version |
-|---|---|---|
-| Embedding | OpenAI text-embedding-3-small | via openai 1.75.0 |
-| Generation | GPT-4o (temp=0) | via langchain-openai 1.1.11 |
-| Dense index | FAISS IndexFlatIP / IVFFlat | faiss-cpu 1.9.0 |
-| Sparse index | BM25Okapi (k1=1.5, b=0.75) | rank-bm25 0.2.2 |
-| Chunking | SemanticChunker (95th-pct) | langchain-experimental 0.3.4 |
-| Chain | LCEL RunnableSequence | langchain-core 1.2.18 |
-| API | FastAPI + uvicorn | 0.115.14 / 0.34.3 |
-| Validation | Pydantic v2 | 2.11.4 |
-| Retry | tenacity | 9.1.4 |
+<br>
 
 ---
 
-## Quickstart
+<br>
+
+## 🛠 Tech Stack
+
+<table>
+  <tr>
+    <th>Layer</th>
+    <th>Library</th>
+    <th>Version</th>
+  </tr>
+  <tr><td><b>Embedding</b></td><td>OpenAI text-embedding-3-small</td><td><code>openai 1.75.0</code></td></tr>
+  <tr><td><b>Generation</b></td><td>GPT-4o (temp=0)</td><td><code>langchain-openai 1.1.11</code></td></tr>
+  <tr><td><b>Dense index</b></td><td>FAISS IndexFlatIP / IVFFlat</td><td><code>faiss-cpu 1.9.0</code></td></tr>
+  <tr><td><b>Sparse index</b></td><td>BM25Okapi (k1=1.5, b=0.75)</td><td><code>rank-bm25 0.2.2</code></td></tr>
+  <tr><td><b>Chunking</b></td><td>SemanticChunker (95th-pct)</td><td><code>langchain-experimental 0.3.4</code></td></tr>
+  <tr><td><b>Chain</b></td><td>LCEL RunnableSequence</td><td><code>langchain-core 1.2.18</code></td></tr>
+  <tr><td><b>API</b></td><td>FastAPI + uvicorn</td><td><code>0.115.14</code> / <code>0.34.3</code></td></tr>
+  <tr><td><b>Validation</b></td><td>Pydantic v2</td><td><code>2.11.4</code></td></tr>
+</table>
+
+<br>
+
+---
+
+<br>
+
+## 🚀 Quickstart
 
 ### 1. Clone and install
-
 ```bash
-git clone <repo>
-cd rag-engine
+git clone https://github.com/im-anishraj/Hybrid-Search-RAG-Engine.git
+cd Hybrid-Search-RAG-Engine
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
 ### 2. Configure
-
 ```bash
 cp .env.example .env
 # Edit .env and set OPENAI_API_KEY=sk-...
 ```
 
 ### 3. Run
-
 ```bash
 uvicorn app.main:app --reload --port 8000
 ```
 
-OpenAPI docs at `http://localhost:8000/docs`.
+> OpenAPI docs are available at `http://localhost:8000/docs`.
 
-### 4. Docker (recommended for production)
-
+### 4. Docker (Recommended for production)
 ```bash
 cp .env.example .env        # fill in OPENAI_API_KEY
 docker compose up --build -d
 docker compose logs -f
-docker compose down         # stop (data volume preserved)
-docker compose down -v      # stop + wipe all index data
 ```
+
+<br>
 
 ---
 
-## API Reference
+<br>
 
-### POST /ingest
+## 🌐 API Endpoints
 
-Upload a PDF, DOCX, or TXT file. Additive — each call accumulates into the
-same corpus without replacing prior documents.
+### `POST /ingest`
+Upload a PDF, DOCX, or TXT file. Additive — each call accumulates into the same corpus without replacing prior documents.
 
 ```bash
 curl -X POST http://localhost:8000/ingest \
   -F "file=@annual_report.pdf"
 ```
+
+<details>
+<summary><b>View Response</b></summary>
 
 ```json
 {
@@ -127,16 +162,17 @@ curl -X POST http://localhost:8000/ingest \
   "message": "'annual_report.pdf' ingested successfully. 47 pages → 112 chunks indexed."
 }
 ```
+</details>
 
----
-
-### POST /query
-
+### `POST /query`
 ```bash
 curl -X POST http://localhost:8000/query \
   -H "Content-Type: application/json" \
   -d '{"question": "What was the EBITDA margin in Q3 2023?"}'
 ```
+
+<details>
+<summary><b>View Response</b></summary>
 
 ```json
 {
@@ -151,173 +187,62 @@ curl -X POST http://localhost:8000/query \
   "retrieved_chunks": []
 }
 ```
+</details>
 
-Include retrieved chunks for debugging retrieval quality:
-
-```bash
-curl -X POST http://localhost:8000/query \
-  -H "Content-Type: application/json" \
-  -d '{"question": "What was revenue?", "top_n": 5, "include_chunks": true}'
-```
-
-When the question is outside the corpus:
-
-```json
-{
-  "answer": "I cannot find this in the provided documents",
-  "sources": [],
-  "can_answer": false
-}
-```
+<br>
 
 ---
 
-### GET /health
+<br>
 
-```bash
-curl http://localhost:8000/health
-```
+## 🏆 Benchmarks
 
-```json
-{
-  "status": "ok",
-  "version": "1.0.0",
-  "vector_store_size": 1124,
-  "bm25_store_size": 1124,
-  "timestamp": "2024-01-15T14:32:07.114"
-}
-```
+**Hit Rate@5 on a 20-query synthetic corpus (30 chunks, 5 topics)**
 
-`status` is `"degraded"` when no documents have been ingested or when
-the two index sizes are out of sync.
+| Engine | Hit Rate @ 5 | Accuracy |
+|:---|:---:|:---:|
+| **Hybrid (RRF)** | **19 / 20** | **95%** |
+| BM25 (Sparse only) | 18 / 20 | 90% |
+| FAISS (Dense only) | 17 / 20 | 85% |
 
----
+> The hybrid-exclusive hit demonstrates the RRF value: FAISS finds a chunk via semantic similarity while BM25 misses it due to zero lexical overlap. RRF promotes chunks both retrievers agree on.
 
-## Benchmark Results
-
-Hit Rate@5 on a 20-query synthetic corpus (30 chunks, 5 topics):
-
-```
-────────────────────────────────────────────────────────────────────────────────
-                       RETRIEVAL BENCHMARK — HIT RATE @ 5
-────────────────────────────────────────────────────────────────────────────────
-  HYBRID | BM25 | QUERY
-────────────────────────────────────────────────────────────────────────────────
-  HIT  | BM25=HIT  | Q3 2023 revenue 4.2 billion dollars           finance
-  HIT  | BM25=HIT  | EBITDA margin 18.5 percent                    finance
-  HIT  | BM25=HIT  | CRISPR-Cas9 genomic editing                   bio
-  HIT  | BM25=HIT  | AlphaFold protein structure prediction        bio
-  HIT  | BM25=HIT  | GDPR Article 17 right to erasure              legal
-  HIT  | BM25=HIT  | Kubernetes microservices orchestration        tech
-  HIT  | BM25=HIT  | CUDA GPU matrix multiplication                tech
-  HIT  | BM25=HIT  | Gutenberg printing press 1440                 history
-  HIT  | BM25=HIT  | messenger RNA spike protein antibodies        bio
-  HIT  | BM25=HIT  | force majeure contractual impossibility       legal
-  HIT  | BM25=MISS | How did company earnings perform last quarter finance  ← hybrid wins
-  HIT  | BM25=HIT  | profitability efficiency measured by EBITDA   finance
-  HIT  | BM25=HIT  | CRISPR bacterial gene editing technology      bio
-  HIT  | BM25=HIT  | Predicting how proteins fold in 3D            bio
-  HIT  | BM25=HIT  | Personal data deletion rights (European law)  legal
-  HIT  | BM25=HIT  | Container scheduling across cloud infra       tech
-  HIT  | BM25=HIT  | Parallel computation on graphics hardware     tech
-  HIT  | BM25=HIT  | How knowledge spread before the internet      history
-  MISS | BM25=MISS | Vaccine technology using genetic instructions  bio
-  HIT  | BM25=HIT  | Contract clause excusing performance          legal
-────────────────────────────────────────────────────────────────────────────────
-  Hybrid=95% (19/20)   BM25-only=90% (18/20)   FAISS-only=85% (17/20)
-  Hybrid gain: +1 vs BM25, +2 vs FAISS
-────────────────────────────────────────────────────────────────────────────────
-```
-
-The hybrid-exclusive hit ("How did company earnings perform last quarter" →
-revenue chunk) demonstrates the RRF value: FAISS finds it via semantic
-similarity while BM25 misses due to zero lexical overlap with "Q3 revenue".
-
-Run the benchmark:
-
+Run the benchmark locally:
 ```bash
 pytest tests/test_retrieval.py -v -s
 ```
 
----
-
-## Project Structure
-
-```
-rag-engine/
-├── app/
-│   ├── main.py                 # FastAPI app: /ingest, /query, /health
-│   ├── schemas.py              # Pydantic v2 request/response models
-│   ├── ingestion/
-│   │   ├── loader.py           # PDF / DOCX / TXT → PageRecord list
-│   │   ├── chunker.py          # SemanticChunker → ChunkRecord list
-│   │   └── embedder.py         # Batch embed → EmbeddedChunk list
-│   ├── retrieval/
-│   │   ├── vector_store.py     # FAISS index (build, search, save, load)
-│   │   ├── bm25_store.py       # BM25Okapi index (build, search, save, load)
-│   │   └── hybrid.py           # RRF fusion + HybridRetriever
-│   └── generation/
-│       └── llm.py              # LCEL chain: prompt | GPT-4o | citation parser
-├── data/
-│   ├── vector_store/           # faiss.index + chunks.pkl (auto-created)
-│   └── bm25_store/             # bm25.pkl (auto-created)
-├── tests/
-│   └── test_retrieval.py       # HR@5 benchmark: hybrid vs BM25 vs FAISS
-├── Dockerfile                  # Multi-stage build (builder + runtime)
-├── docker-compose.yml          # Single-service compose with named volume
-├── .env.example                # Config template
-├── requirements.txt            # Pinned dependencies
-└── README.md
-```
+<br>
 
 ---
 
-## Configuration Reference
+<br>
 
-| Variable | Default | Description |
-|---|---|---|
-| `OPENAI_API_KEY` | — | **Required.** OpenAI API key |
-| `GENERATION_MODEL` | `gpt-4o` | LLM for answer generation |
-| `GENERATION_TEMPERATURE` | `0` | Sampling temperature |
-| `GENERATION_MAX_TOKENS` | `1024` | Max tokens in generated answer |
-| `GENERATION_TIMEOUT` | `60` | OpenAI request timeout (seconds) |
-| `VECTOR_STORE_DIR` | `data/vector_store` | FAISS persistence path |
-| `BM25_STORE_DIR` | `data/bm25_store` | BM25 persistence path |
-| `HYBRID_K` | `10` | Candidates per retriever |
-| `HYBRID_TOP_N` | `5` | Final chunks passed to LLM |
-| `HYBRID_RRF_K` | `60` | RRF smoothing constant |
-| `BM25_K1` | `1.5` | BM25 term frequency saturation |
-| `BM25_B` | `0.75` | BM25 document length normalisation |
-| `SEMANTIC_THRESHOLD_PERCENTILE` | `95` | Cosine distance percentile for splits |
-| `LOG_LEVEL` | `info` | debug / info / warning / error |
-| `APP_VERSION` | `1.0.0` | Version string in /health |
+## 🧠 Design Notes
+
+- **Why `--workers 1`?** FAISS's C++ index is not fork-safe. Scale horizontally with multiple containers behind a load balancer instead of multiple workers per container.
+- **Why semantic chunking?** Fixed 512-token windows slice sentences mid-thought. `SemanticChunker` detects topic-shift boundaries via cosine distance spikes, producing one-complete-idea chunks. The LLM receives coherent passages, not sentence fragments.
+- **Why BM25 alongside FAISS?** Dense embeddings smear rare tokens. "EBITDA" and "CRISPR-Cas9" map to broad semantic regions shared by adjacent-but-wrong terms. BM25's exact token matching catches them precisely. 
+
+<br>
 
 ---
 
-## Design Notes
+<br>
 
-**Why `--workers 1`?** FAISS's C++ index is not fork-safe. Scale horizontally
-with multiple containers behind a load balancer instead of multiple workers
-per container.
+<div align="center">
 
-**Why semantic chunking?** Fixed 512-token windows slice sentences mid-thought.
-`SemanticChunker` detects topic-shift boundaries via cosine distance spikes,
-producing one-complete-idea chunks. The LLM receives coherent passages,
-not sentence fragments.
+<br>
 
-**Why BM25 alongside FAISS?** Dense embeddings smear rare tokens —
-"EBITDA", "CRISPR-Cas9", "Article 17" map to broad semantic regions shared
-by adjacent-but-wrong terms. BM25's exact token matching catches them
-precisely. RRF promotes chunks both retrievers agree on, the strongest
-multi-evidence signal for relevance.
+**Built with precision. Open for contributions.**
 
-**Why the sentinel string?** Calibrating a confidence threshold requires
-labelled queries. The sentinel `"I cannot find this in the provided documents"`
-is model-enforced via the system prompt — deterministic, testable, and
-requires no per-deployment calibration.
+<br>
 
----
+<a href="https://github.com/im-anishraj/Hybrid-Search-RAG-Engine/stargazers"><img src="https://img.shields.io/github/stars/im-anishraj/Hybrid-Search-RAG-Engine?style=flat-square&logo=github&labelColor=0d1117&color=e3b341&label=stars" alt="Stars"></a>&ensp;
+<a href="https://github.com/im-anishraj/Hybrid-Search-RAG-Engine/network/members"><img src="https://img.shields.io/github/forks/im-anishraj/Hybrid-Search-RAG-Engine?style=flat-square&logo=github&labelColor=0d1117&color=8b949e&label=forks" alt="Forks"></a>
 
-## License
+<br>
 
-MIT
+<sub>Licensed under MIT · Maintained by <a href="https://github.com/im-anishraj">@im-anishraj</a></sub>
+
+</div>
