@@ -11,7 +11,7 @@ langchain-text-splitters==0.3.8    # SemanticChunker lives here
 langchain-experimental==0.3.4      # Extra experimental splitters / chains
 
 # ── OpenAI SDK ───────────────────────────────────────────────────────────────
-openai==1.75.0                     # text-embedding-3-small + GPT-4o calls
+openai==2.26.0                     # text-embedding-3-small + GPT-4o calls
 tiktoken==0.9.0                    # Token counting for batching / prompts
 
 # ── Vector Search ────────────────────────────────────────────────────────────
