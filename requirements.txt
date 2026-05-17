@@ -33,7 +33,7 @@ httpx==0.28.1                      # Async HTTP client (TestClient + OpenAI)
 
 # ── Data Validation ──────────────────────────────────────────────────────────
 pydantic==2.11.4                   # Request/Response schemas, settings
-pydantic-settings==2.9.1           # BaseSettings for .env loading
+pydantic-settings==2.10.1          # BaseSettings for .env loading
 
 # ── Resilience & Config ──────────────────────────────────────────────────────
 tenacity==9.1.4                    # Retry logic with exponential back-off
