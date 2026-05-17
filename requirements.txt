@@ -4,11 +4,11 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 # ── LangChain Ecosystem ──────────────────────────────────────────────────────
-langchain==1.2.12                  # Core orchestration, RetrievalQA chain
-langchain-openai==1.1.11           # ChatOpenAI + OpenAIEmbeddings wrappers
+langchain==1.3.1                   # Core orchestration, RetrievalQA chain
+langchain-openai==1.2.1            # ChatOpenAI + OpenAIEmbeddings wrappers
 langchain-community==0.4.1         # FAISS VectorStore integration
-langchain-text-splitters==0.3.8    # SemanticChunker lives here
-langchain-experimental==0.3.4      # Extra experimental splitters / chains
+langchain-text-splitters==1.1.2    # SemanticChunker lives here
+langchain-experimental==0.4.1      # Extra experimental splitters / chains
 
 # ── OpenAI SDK ───────────────────────────────────────────────────────────────
 openai==2.26.0                     # text-embedding-3-small + GPT-4o calls
